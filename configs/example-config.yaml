@@ -1,0 +1,12 @@
+postgres_uri: "postgres://caltoph:7th9CYiqwW5eTpbc83u9snJVsNssWVxN@postgres.checht.de/caltoph?sslmode=verify-full"
+loglevel: debug
+dev_mode: true
+oidc_providers:
+- name: auth.checht.de
+  url: https://auth.checht.de/realms/caltoph-dev
+  url_authorize: https://auth.checht.de/realms/caltoph-dev/protocol/openid-connect/auth
+  url_token: https://auth.checht.de/realms/caltoph-dev/protocol/openid-connect/token
+  url_userinfo: https://auth.checht.de/realms/caltoph-dev/protocol/openid-connect/userinfo
+  client_id: caltoph-dev
+  client_secret: GV9S1P7y5bQWDuv6LSFjroBmP6vL4CoW
+  username_claim: username

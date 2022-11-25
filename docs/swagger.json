@@ -1,0 +1,24 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Caltoph API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/_caltoph/v1",
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "Get app health",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    }
+}
