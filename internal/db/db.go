@@ -5,8 +5,7 @@ import (
 	"time"
 	"wishmill/internal/logger"
 
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/lib/pq"
 )
 
 const healthCheckIntervalDb int = 5
@@ -35,6 +34,7 @@ func Init(postgres_uri string) {
 	}
 	go checkDbHealth()
 	logger.InfoLogger.Println("Successfully connected to database")
+	//migrateDb(postgres_uri)
 }
 
 // Ping DB. Return true if succeeded
@@ -56,18 +56,4 @@ func checkDbHealth() {
 
 func GetDbHealth() bool {
 	return dbHealth
-}
-
-func migrateDb() {
-	driver, err := postgres.WithInstance(Db, &postgres.Config{})
-	if err != nil {
-		logger.FatalLogger.Println(err)
-	}
-
-	m, err := migrate.NewWithDatabaseInstance("file", "postgres", driver)
-	if err != nil {
-		logger.FatalLogger.Println(err)
-	}
-
-	m.Up()
 }

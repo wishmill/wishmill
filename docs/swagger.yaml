@@ -1,9 +1,113 @@
-basePath: /_caltoph/v1
+basePath: /_wishmill/v1
+definitions:
+  api.Errormsg:
+    properties:
+      message:
+        type: string
+    type: object
+  api.LoginBody:
+    properties:
+      code:
+        type: string
+      provider:
+        type: string
+      redirect_url:
+        type: string
+    required:
+    - code
+    - provider
+    - redirect_url
+    type: object
+  api.Session:
+    properties:
+      token:
+        type: string
+    required:
+    - token
+    type: object
+  api.User:
+    properties:
+      authProvider:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      sub:
+        type: string
+    type: object
+  config.Oidc_provider:
+    properties:
+      client_id:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+    type: object
 info:
   contact: {}
-  title: Caltoph API
+  title: Wishmill API
   version: "1.0"
 paths:
+  /auth/checkToken:
+    post:
+      parameters:
+      - description: Authorize data from oidc provider
+        in: body
+        name: Session
+        required: true
+        schema:
+          $ref: '#/definitions/api.Session'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Errormsg'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Errormsg'
+      summary: Check token validity
+  /auth/obtainToken:
+    post:
+      parameters:
+      - description: Authorize data from oidc provider
+        in: body
+        name: Login
+        required: true
+        schema:
+          $ref: '#/definitions/api.LoginBody'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.Session'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Errormsg'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Errormsg'
+      summary: Generate a session token
+  /auth/oidc_providers:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/config.Oidc_provider'
+            type: array
+      summary: Get oidc authentication providers
   /health:
     get:
       responses:

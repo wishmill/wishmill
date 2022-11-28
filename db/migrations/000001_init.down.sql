@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS wishlistitems;
+DROP TABLE IF EXISTS wishlists;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS config;;
+DROP FUNCTION IF EXISTS trigger_set_timestamp;
